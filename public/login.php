@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,7 +9,6 @@
 <body>
     <div class="login-container">
         <?php
-            session_start();
             if (isset($_SESSION['error'])) {
                 echo '<div class="error-message">'.htmlspecialchars($_SESSION['error']).'</div>';
                 unset($_SESSION['error']); // Limpa a mensagem para não aparecer sempre
