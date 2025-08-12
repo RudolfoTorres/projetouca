@@ -1,8 +1,13 @@
 FROM php:8.2-apache
 
-# Define a pasta raiz do servidor web como 'public'
+# Copia o código da sua aplicação para o diretório padrão do Apache
 COPY . /var/www/html/
-WORKDIR /var/www/html/
 
-# Exponha a porta 80
-EXPOSE 80
+# Altera a configuração do Apache para usar a pasta 'public'
+RUN sed -i -e 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/public/g' /etc/apache2/sites-available/000-default.conf
+
+# Habilita o módulo de reescrita do Apache
+RUN a2enmod rewrite
+
+# Reinicia o Apache para que as novas configurações sejam aplicadas
+CMD ["apache2ctl", "-D", "FOREGROUND"]
