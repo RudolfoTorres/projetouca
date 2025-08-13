@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-echo "to aqui"; die();
-
 require_once '../../app/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
