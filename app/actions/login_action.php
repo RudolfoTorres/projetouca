@@ -22,19 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_usuario'] = $user['usuario'];
             $_SESSION['user_nivel_permissao'] = $user['nivel_permissao'];
-            header('Location: ../../public/dashboard.php');
+            header('Location: /dashboard.php');
             exit;
         } else {
             $_SESSION['error'] = 'Usuário ou senha inválidos.';
-            header('Location: ../../public/login.php');
+            header('Location: /login.php');
             exit;
         }
     } catch (PDOException $e) {
         $_SESSION['error'] = 'Erro no banco: ' . $e->getMessage();
-        header('Location: ../../public/login.php');
+        header('Location: /login.php');
         exit;
     }
 } else {
-    header('Location: ../../public/login.php');
+    header('Location: /login.php');
     exit;
 }

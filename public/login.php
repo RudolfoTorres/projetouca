@@ -15,7 +15,7 @@
             }
         ?>
         <h2>Login</h2>
-        <form method="POST" action="../app/actions/login_action.php">
+        <form method="POST" action="login_action.php">
             <input type="text" id="usuario" name="usuario" placeholder="Usuário" required />
 
             <input type="password" id="senha" name="senha" placeholder="Senha" required />
