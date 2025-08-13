@@ -20,7 +20,7 @@
             }
         ?>
 
-        <form action="/register_action.php" method="POST">
+        <form action="/handle_register.php" method="POST">
             <input type="text" id="usuario" name="usuario" placeholder="Usuário" required><br>
 
             <input type="password" id="senha" name="senha" placeholder="Senha" required><br>
