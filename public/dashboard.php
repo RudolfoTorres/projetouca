@@ -72,7 +72,7 @@ $user_nivel_permissao = $_SESSION['user_nivel_permissao'];
     <li><a href="#">Início</a></li>
     <li><a href="#">Perfil</a></li>
     <li><a href="#">Configurações</a></li>
-    <li><a href="../app/actions/logout.php">Sair</a></li>
+    <li><a href="/logout.php">Sair</a></li>
   </ul>
 </div>
 
