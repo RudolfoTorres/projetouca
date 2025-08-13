@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,7 +11,6 @@
         <h2>Cadastro de Usuário</h2>
 
         <?php
-            session_start();
             if (isset($_SESSION['register_error'])) {
                 echo '<p style="color:red;">' . $_SESSION['register_error'] . '</p>';
                 unset($_SESSION['register_error']);
