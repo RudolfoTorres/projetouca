@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../config.php';
+require_once __DIR__ . '/../config.php';
 
 // Verifica se os campos foram preenchidos
 if (!isset($_POST['usuario'], $_POST['senha'])) {
