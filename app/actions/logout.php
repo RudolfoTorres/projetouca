@@ -8,5 +8,5 @@ $_SESSION = [];
 session_destroy();
 
 // Redireciona para a tela de login
-header("Location: ../../public/login.php");
+header("Location: /login.php");
 exit();
