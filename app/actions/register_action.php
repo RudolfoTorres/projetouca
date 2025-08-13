@@ -5,7 +5,7 @@ require_once '../config.php';
 // Verifica se os campos foram preenchidos
 if (!isset($_POST['usuario'], $_POST['senha'])) {
     $_SESSION['register_error'] = "Preencha todos os campos.";
-    header("Location: ../../public/register.php");
+    header("Location: /register.php");
     exit;
 }
 
@@ -19,7 +19,7 @@ try {
     $stmt->execute([$usuario]);
     if ($stmt->fetchColumn() > 0) {
         $_SESSION['register_error'] = "Usuário já existe.";
-        header("Location: ../../public/register.php");
+        header("Location: /register.php");
         exit;
     }
 
@@ -28,10 +28,10 @@ try {
     $stmt->execute([$usuario, $senha, $nivel_permissao]);
 
     $_SESSION['register_success'] = "Usuário cadastrado com sucesso!";
-    header("Location: ../../public/register.php");
+    header("Location: /register.php");
     exit;
 } catch (PDOException $e) {
     $_SESSION['register_error'] = "Erro no banco de dados: " . $e->getMessage();
-    header("Location: ../../public/register.php");
+    header("Location: /register.php");
     exit;
 }
