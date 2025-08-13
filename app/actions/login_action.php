@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$usuario || !$senha) {
         $_SESSION['error'] = 'Por favor, preencha usuário e senha.';
-        header('Location: ../../public/login.php');
+        header('Location: /login.php');
         exit;
     }
 
