@@ -1,0 +1,13 @@
+# Ativa o módulo de reescrita de URL do Apache
+RewriteEngine On
+
+# A próxima regra redireciona todas as requisições para index.php
+
+# Ignora a regra se o arquivo solicitado realmente existir no servidor
+RewriteCond %{REQUEST_FILENAME} !-f
+# Ignora a regra se o diretório solicitado realmente existir no servidor
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redireciona todas as outras requisições para o index.php
+# Isso permite que a sua aplicação controle o roteamento da URL
+RewriteRule ^(.*)$ index.php/$1 [L]
