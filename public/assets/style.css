@@ -1,21 +1,54 @@
+/* ======================== */
+/* 1. ESTILOS GLOBAIS      */
+/* ======================== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
     margin: 0;
-    background-color: #461F71;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
-.login-container, 
-.register-container {
+a {
+    color: #461F71;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ======================== */
+/* 2. ESTILOS DE LOGIN E CADASTRO */
+/* ======================== */
+
+/* Estilos aplicados somente à página de login e cadastro */
+.login-page, .register-page {
+    background-color: #551c8e; /* Fundo roxo da tela de login */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.system-title {
+    color: white;
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow:  0 0 5px #333;
+}
+
+.login-container, .register-container {
     background: white;
     padding: 20px 30px;
     border-radius: 6px;
     box-shadow: 0 0 10px #ccc;
     width: 320px;
+}
+
+.login-container h2, .register-container h2 {
+    margin-top: 0;
 }
 
 .error-message {
@@ -27,14 +60,18 @@ body {
     border-radius: 4px;
 }
 
-input, button, select {
+.login-container input, 
+.login-container button,
+.register-container input,
+.register-container button,
+.register-container select {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
     box-sizing: border-box;
 }
 
-button {
+.login-container button, .register-container button {
     background-color: #461F71;
     border: none;
     color: white;
@@ -42,6 +79,95 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.login-container button:hover, .register-container button:hover {
     background-color: #906891;
+}
+
+/* ======================== */
+/* 3. ESTILOS DA DASHBOARD */
+/* ======================== */
+
+.dashboard-page {
+    background-color: #f6f6f6; /* Fundo cinza para a dashboard */
+}
+
+/* Estilos do menu */
+.dashboard-page .menu {
+    background-color: #461F71;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.dashboard-page .menu .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dashboard-page .menu ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-page .menu ul li {
+    margin-left: 0;
+}
+
+.dashboard-page .menu ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.dashboard-page .menu ul li a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-page .dashborad-container {
+    padding: 40px;
+    text-align: center;
+}
+
+/* ======================== */
+/* 4. ESTILOS DE COMPONENTES DA DASHBOARD */
+/* ======================== */
+.dashboard-page .menu li.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; /* Oculta o dropdown por padrão */
+    position: absolute;
+    background-color: #461F71; /* Cor de fundo igual a do menu */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%; /* Posiciona o dropdown abaixo do link */
+    right: 0;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #3f146a; /* Cor de fundo ao passar o mouse */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Mostra o dropdown ao passar o mouse sobre o 'Perfil' */
 }

@@ -3,10 +3,12 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8" />
-    <title>Login - Sistema</title>
+    <title>Login - UCA Mídias</title>
     <link rel="stylesheet" href="assets/style.css" />
 </head>
-<body>
+<body class="login-page">
+    <h1 class="system-title"><i class="fas fa-clapperboard"></i>🎬 UCA Mídias!</h2>
+    <br><br>
     <div class="login-container">
         <?php
             if (isset($_SESSION['error'])) {

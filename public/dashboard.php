@@ -15,70 +15,29 @@ $user_nivel_permissao = $_SESSION['user_nivel_permissao'];
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f6f6f6;
-    }
-
-    .menu {
-        background-color: #461F71;
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .menu .logo {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .menu ul {
-        list-style: none;
-        display: flex;
-        margin: 0;
-        padding: 0;
-    }
-
-    .menu ul li {
-        margin-left: 20px;
-    }
-
-    .menu ul li a {
-        color: white;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-
-    .menu ul li a:hover {
-        text-decoration: underline;
-    }
-
-    .container {
-        padding: 40px;
-        text-align: center;
-    }
-  </style>
+  <title>Dashboard - UCA Mídias</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
-<body>
+<body class="dashboard-page">
 
 <div class="menu">
   <div class="logo"><p>Bem-vindo(a), <strong><?php echo htmlspecialchars($usuario." ".$user_nivel_permissao); ?></strong>!</p></div>
   <ul>
-    <li><a href="#">Início</a></li>
-    <li><a href="#">Perfil</a></li>
-    <li><a href="#">Configurações</a></li>
-    <li><a href="/logout.php">Sair</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropbtn">Perfil</a>
+      <div class="dropdown-content">
+        <a href="#">Cadastrar</a>
+        <a href="#">Consultar</a>
+        <br>
+        <a href="#">Alterar Senha</a>
+        <a href="/logout.php">Sair</a>
+      </div>
+    </li>
   </ul>
 </div>
+<br>
+<div class="dashborad-container">
 
-<div class="container">
-  <h2>Área restrita</h2>
-  <p>Conteúdo da dashboard vai aqui.</p>
 </div>
 
 </body>
