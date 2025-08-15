@@ -111,63 +111,6 @@ a:hover {
     font-weight: bold;
 }
 
-.dashboard-page .menu ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.dashboard-page .menu ul li {
-    margin-left: 0;
-}
-
-.dashboard-page .menu ul li a {
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.dashboard-page .menu ul li a:hover {
-    text-decoration: underline;
-}
-
-.dashboard-page .dashborad-container {
-    padding: 40px;
-    text-align: center;
-}
-
-/* ======================== */
-/* 4. ESTILOS DE COMPONENTES DA DASHBOARD */
-/* ======================== */
-.dashboard-page .menu li.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none; /* Oculta o dropdown por padrão */
-    position: absolute;
-    background-color: #461F71; /* Cor de fundo igual a do menu */
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    top: 100%; /* Posiciona o dropdown abaixo do link */
-    right: 0;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {
-    background-color: #3f146a; /* Cor de fundo ao passar o mouse */
-}
-
-.dropdown:hover .dropdown-content {
-    display: block; /* Mostra o dropdown ao passar o mouse sobre o 'Perfil' */
+.dashboard-page .menu .logo p {
+    margin-top: 15px;
 }

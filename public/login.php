@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <title>Login - UCA Mídias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body class="login-page">
-    <h1 class="system-title"><i class="fas fa-clapperboard"></i>🎬 UCA Mídias!</h2>
+    <h1 class="system-title"><i class="fas fa-clapperboard"></i>🎬 UCA Mídias!</h1>
     <br><br>
     <div class="login-container">
         <?php
@@ -16,18 +17,20 @@
                 unset($_SESSION['error']); // Limpa a mensagem para não aparecer sempre
             }
         ?>
-        <h2>Login</h2>
+        <h3>Login</h3>
         <form method="POST" action="/handle_login.php">
-            <input type="text" id="usuario" name="usuario" placeholder="Usuário" required />
+            <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Usuário" required />
 
-            <input type="password" id="senha" name="senha" placeholder="Senha" required />
+            <input class="form-control" type="password" id="senha" name="senha" placeholder="Senha" required />
 
-            <button type="submit">Entrar</button>
+            <button class="btn btn-primary" type="submit">Entrar</button>
         </form>
 
         <p style="text-align: center; margin-top: 10px;">
             <a href="register.php">Cadastre-se</a>
         </p>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
