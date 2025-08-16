@@ -1,15 +1,10 @@
 <?php
-session_start();
-require_once __DIR__ . '/../app/config.php';
-
-// Redireciona para o login se o usuário não estiver autenticado
-if (!isset($_SESSION['user_usuario'])) {
-    header("Location: /login.php");
-    exit();
-}
+// Este arquivo é carregado dentro de dashboard.php
+// A sessão já está iniciada e a conexão com o banco de dados já está disponível.
 
 // REGRA 1: Instrutores não têm acesso a cadastrar usuários
 if ($_SESSION['user_nivel_permissao'] === 'INSTRUTOR') {
+    // Redireciona para o login se a sessão não estiver iniciada
     header("Location: /dashboard.php");
     exit();
 }
@@ -35,15 +30,6 @@ if ($_SESSION['user_nivel_permissao'] === 'SUPERVISOR') {
     $linhas_disponiveis = $linhas;
 }
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Cadastro de usuário - UCA Mídias</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body class="register-page">
     <div class="register-container">
         <h3>Cadastro de Usuário</h3>
 
@@ -75,7 +61,7 @@ if ($_SESSION['user_nivel_permissao'] === 'SUPERVISOR') {
             </select><br>
 
             <div class="mb-3">
-                <label for="linhas" class="form-label">Linhas de Acesso</label>
+                <label for="linhas" class="form-label">Linhas de Acesso:</label>
                 <select class="form-select" id="linhas" name="linhas[]" multiple required>
                     <?php foreach ($linhas_disponiveis as $linha): ?>
                         <option value="<?php echo htmlspecialchars($linha['id']); ?>">
@@ -89,6 +75,3 @@ if ($_SESSION['user_nivel_permissao'] === 'SUPERVISOR') {
             <button class="btn btn-primary" type="submit">Cadastrar</button>
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

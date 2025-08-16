@@ -39,12 +39,23 @@ a:hover {
     text-shadow:  0 0 5px #333;
 }
 
-.login-container, .register-container {
+.login-container {
     background: white;
     padding: 20px 30px;
     border-radius: 6px;
     box-shadow: 0 0 10px #ccc;
     width: 320px;
+}
+
+.register-container {
+    display: block;
+    padding: 20px 30px;
+    width: 360px;
+    margin: auto;
+}
+
+#linhas {
+    height: 180px;
 }
 
 .login-container h2, .register-container h2 {

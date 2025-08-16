@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../app/config.php';
 
 if (!isset($_SESSION['user_usuario'])) {
     header("Location: login.php");
@@ -8,6 +9,18 @@ if (!isset($_SESSION['user_usuario'])) {
 
 $usuario = $_SESSION['user_usuario'];
 $user_nivel_permissao = $_SESSION['user_nivel_permissao'];
+
+// Lógica de roteamento: determina qual página carregar
+$page = isset($_GET['page']) ? $_GET['page'] : 'home'; // 'home' é a página padrão
+
+$allowed_pages = ['register', 'home']; // Adicione outras páginas aqui no futuro
+
+if (!in_array($page, $allowed_pages)) {
+    $page = 'home'; // Redireciona para a página inicial se a URL for inválida
+}
+
+// O caminho para a página a ser incluída
+$page_path = __DIR__ . '/' . $page . '.php';
 
 ?>
 
@@ -22,26 +35,39 @@ $user_nivel_permissao = $_SESSION['user_nivel_permissao'];
 <body class="dashboard-page">
 
   <div class="menu">
-    
-  <div class="logo"><p>Bem-vindo(a), <strong><?php echo htmlspecialchars($usuario." - ".$user_nivel_permissao); ?></strong>!</p></div>
+    <div class="logo"><p>Bem-vindo(a), <strong><?php echo htmlspecialchars($usuario." - ".$user_nivel_permissao); ?></strong>!</p></div>
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Menu
       </a>
 
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Cadastrar Mídia</a></li>
-        <li><a class="dropdown-item" href="#">Buscar Mídias</a></li>
+        <li><a class="dropdown-item" href="dashboard.php">Início</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="dashboard.php?page=midias">Cadastrar Mídia</a></li>
+        <li><a class="dropdown-item" href="dashboard.php?page=buscar">Buscar Mídias</a></li>
         
         <?php if ($user_nivel_permissao === 'GERENTE' || $user_nivel_permissao === 'SUPERVISOR'): ?>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="register.php">Cadastrar usuário</a></li>
+          <li><a class="dropdown-item" href="dashboard.php?page=register">Cadastrar usuário</a></li>
         <?php endif; ?>
 
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Alterar senha</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="logout.php">Sair</a></li>
       </ul>
     </div>
+  </div>
+
+  <div class="main-content">
+    <?php
+      if (file_exists($page_path)) {
+          include $page_path;
+      } else {
+          echo "Página não encontrada!";
+      }
+    ?>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
