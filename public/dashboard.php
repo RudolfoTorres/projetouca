@@ -10,13 +10,13 @@ if (!isset($_SESSION['user_usuario'])) {
 $usuario = $_SESSION['user_usuario'];
 $user_nivel_permissao = $_SESSION['user_nivel_permissao'];
 
-// Lógica de roteamento: determina qual página carregar
-$page = isset($_GET['page']) ? $_GET['page'] : 'home'; // 'home' é a página padrão
+// Lógica de roteamento: agora 'buscar_midias' é a página padrão
+$page = isset($_GET['page']) ? $_GET['page'] : 'buscar_midias';
 
-$allowed_pages = ['register', 'home']; // Adicione outras páginas aqui no futuro
+$allowed_pages = ['register', 'buscar_midias']; // Adicione outras páginas aqui no futuro
 
 if (!in_array($page, $allowed_pages)) {
-    $page = 'home'; // Redireciona para a página inicial se a URL for inválida
+    $page = 'buscar'; // Redireciona para a página de busca se a URL for inválida
 }
 
 // O caminho para a página a ser incluída
@@ -42,18 +42,14 @@ $page_path = __DIR__ . '/' . $page . '.php';
       </a>
 
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="dashboard.php">Início</a></li>
-        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="dashboard.php?page=buscar_midias">Buscar Mídias</a></li>
         <li><a class="dropdown-item" href="dashboard.php?page=midias">Cadastrar Mídia</a></li>
-        <li><a class="dropdown-item" href="dashboard.php?page=buscar">Buscar Mídias</a></li>
         
         <?php if ($user_nivel_permissao === 'GERENTE' || $user_nivel_permissao === 'SUPERVISOR'): ?>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="dashboard.php?page=register">Cadastrar usuário</a></li>
         <?php endif; ?>
 
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Alterar senha</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="logout.php">Sair</a></li>
       </ul>
