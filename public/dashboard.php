@@ -13,10 +13,10 @@ $user_nivel_permissao = $_SESSION['user_nivel_permissao'];
 // Lógica de roteamento: agora 'buscar_midias' é a página padrão
 $page = isset($_GET['page']) ? $_GET['page'] : 'buscar_midias';
 
-$allowed_pages = ['register', 'buscar_midias']; // Adicione outras páginas aqui no futuro
+$allowed_pages = ['register', 'buscar_midias', 'cadastrar_midias']; // Adicione outras páginas aqui no futuro
 
 if (!in_array($page, $allowed_pages)) {
-    $page = 'buscar'; // Redireciona para a página de busca se a URL for inválida
+    $page = 'buscar_midias'; // Redireciona para a página de busca se a URL for inválida
 }
 
 // O caminho para a página a ser incluída
@@ -43,7 +43,7 @@ $page_path = __DIR__ . '/' . $page . '.php';
 
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="dashboard.php?page=buscar_midias">Buscar Mídias</a></li>
-        <li><a class="dropdown-item" href="dashboard.php?page=midias">Cadastrar Mídia</a></li>
+        <li><a class="dropdown-item" href="dashboard.php?page=cadastrar_midias">Cadastrar Mídia</a></li>
         
         <?php if ($user_nivel_permissao === 'GERENTE' || $user_nivel_permissao === 'SUPERVISOR'): ?>
           <li><hr class="dropdown-divider"></li>
