@@ -25,10 +25,6 @@
 
             <button class="btn btn-primary" type="submit">Entrar</button>
         </form>
-
-        <p style="text-align: center; margin-top: 10px;">
-            <a href="register.php">Cadastre-se</a>
-        </p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
