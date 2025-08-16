@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+require_once __DIR__ . '/../app/config.php';
+
+// Buscar a lista de linhas para o formulário
+$linhas_query = $pdo->query("SELECT id, nome FROM linhas ORDER BY nome ASC");
+$linhas = $linhas_query->fetchAll(PDO::FETCH_ASSOC);
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -31,6 +39,18 @@
                 <option value="SUPERVISOR">SUPERVISOR</option>
                 <option value="GERENTE">GERENTE</option>
             </select><br>
+
+            <div class="mb-3">
+                <label for="linhas" class="form-label">Linhas de Acesso</label>
+                <select class="form-select selectpicker" id="linhas" name="linhas[]" multiple required>
+                    <?php foreach ($linhas as $linha): ?>
+                        <option value="<?php echo htmlspecialchars($linha['id']); ?>">
+                            <?php echo htmlspecialchars($linha['nome']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <small class="form-text text-muted">Use a tecla Ctrl (Windows) ou Cmd (Mac) para selecionar múltiplas linhas.</small>
+             </div>
 
             <button class="btn btn-primary" type="submit">Cadastrar</button>
         </form>
