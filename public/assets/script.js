@@ -2,6 +2,46 @@ function editarMidia(id) {
     window.location.href = `dashboard.php?page=editar_midia&id=${id}`;
 }
 
+// NOVO: Adicione a função para excluir uma mídia
+function excluirMidia(id) {
+    if (confirm('Tem certeza de que deseja excluir esta mídia? Esta ação é irreversível.')) {
+        // Envia a requisição AJAX para o servidor
+        const formData = new FormData();
+        formData.append('id', id);
+
+        fetch('handle_excluir_midia.php', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData.message || 'Erro de rede ou servidor.');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // Atualiza a tabela de resultados após a exclusão bem-sucedida
+                const searchForm = document.getElementById('search-form');
+                if (searchForm) {
+                    searchForm.dispatchEvent(new Event('submit'));
+                }
+            } else {
+                alert('Erro: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Erro ao excluir a mídia: ' + error.message);
+        });
+    }
+}
+
 // Aguarda o DOM estar completamente carregado
 document.addEventListener('DOMContentLoaded', function() {
     // Verifica se os elementos da busca existem na página
