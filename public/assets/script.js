@@ -5,21 +5,24 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchForm) {
         const resultadosTabela = document.getElementById('resultados-tabela');
         const loadingSpinner = document.getElementById('loading-spinner');
+        const countResultsSpan = document.getElementById('count-results');
 
         // Função para buscar e exibir os resultados
         const buscarMidias = async () => {
             // Exibe o spinner e limpa a tabela
             loadingSpinner.classList.remove('d-none');
             resultadosTabela.innerHTML = '';
+            countResultsSpan.textContent = '...';
 
             const formData = new FormData(searchForm);
             
             try {
-                const response = await fetch('/handle_buscar_midias.php', {
+                // CORREÇÃO: Chamando o endpoint dedicado
+                const response = await fetch('buscar_midias_ajax.php', {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'X-Requested-With': 'XMLHttpRequest' // Indica que é uma requisição AJAX
+                        'X-Requested-With': 'XMLHttpRequest'
                     }
                 });
 
@@ -27,11 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error('Erro na requisição. Status: ' + response.status);
                 }
 
-                const htmlResultados = await response.text();
-                resultadosTabela.innerHTML = htmlResultados;
+                const data = await response.json();
+                
+                countResultsSpan.textContent = data.count;
+                resultadosTabela.innerHTML = data.html;
 
             } catch (error) {
-                resultadosTabela.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Erro ao carregar dados: ${error.message}</td></tr>`;
+                countResultsSpan.textContent = '0';
+                resultadosTabela.innerHTML = `<tr><td colspan="7" class="text-center text-danger">Erro ao carregar dados: ${error.message}</td></tr>`;
             } finally {
                 // Esconde o spinner
                 loadingSpinner.classList.add('d-none');

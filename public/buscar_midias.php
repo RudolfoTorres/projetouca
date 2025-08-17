@@ -17,8 +17,6 @@ $linhas_query->execute($linhas_params);
 $linhas = $linhas_query->fetchAll(PDO::FETCH_ASSOC);
 
 // Lógica para buscar os sistemas
-// GERENTE: Vê todos os sistemas
-// SUPERVISOR / INSTRUTOR: Vê apenas os sistemas das linhas que têm acesso
 $sistemas_query_sql = "SELECT id, nome FROM sistemas ORDER BY nome ASC";
 $sistemas_params = [];
 if ($user_nivel_permissao !== 'GERENTE') {
@@ -41,11 +39,9 @@ $sistemas = $sistemas_query->fetchAll(PDO::FETCH_ASSOC);
 $pessoas_query_sql = "SELECT id, usuario FROM usuarios WHERE nivel_permissao IN ('INSTRUTOR', 'SUPERVISOR') ORDER BY usuario ASC";
 $pessoas_params = [];
 if ($user_nivel_permissao === 'INSTRUTOR') {
-    // Instrutores só podem ver a si mesmos
     $pessoas_query_sql = "SELECT id, usuario FROM usuarios WHERE id = ?";
     $pessoas_params = [$user_id_logado];
 } else if ($user_nivel_permissao === 'SUPERVISOR') {
-    // Supervisores vêem a si mesmos e instrutores das suas linhas
     $pessoas_query_sql = "
         SELECT DISTINCT u.id, u.usuario FROM usuarios u
         LEFT JOIN user_linhas ul ON u.id = ul.user_id
@@ -71,7 +67,7 @@ $status = $status_query->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="container-fluid py-4">
     <div class="card p-4 mb-4">
-        <form id="search-form" action="/handle_buscar_midias.php" method="POST">
+        <form id="search-form" action="buscar_midias_ajax.php" method="POST">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nome" class="form-label">Nome da Mídia</label>
@@ -135,7 +131,7 @@ $status = $status_query->fetchAll(PDO::FETCH_ASSOC);
         </form>
     </div>
 
-    <h4>Resultados</h4>
+    <h4>Resultados (<span id="count-results">0</span>)</h4>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -145,7 +141,9 @@ $status = $status_query->fetchAll(PDO::FETCH_ASSOC);
                     <th>Sistema</th>
                     <th>Pessoa</th>
                     <th>Data</th>
-                    <th>Status</th> <th>Ações</th>  </tr>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
             <tbody id="resultados-tabela">
                 <tr>
