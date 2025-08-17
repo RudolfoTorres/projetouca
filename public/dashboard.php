@@ -13,7 +13,7 @@ $user_nivel_permissao = $_SESSION['user_nivel_permissao'];
 // Lógica de roteamento: agora 'buscar_midias' é a página padrão
 $page = isset($_GET['page']) ? $_GET['page'] : 'buscar_midias';
 
-$allowed_pages = ['register', 'buscar_midias', 'cadastrar_midias', 'editar_midia']; // Adicione outras páginas aqui no futuro
+$allowed_pages = ['register', 'buscar_midias', 'cadastrar_midias', 'editar_midia', 'alterar_senha']; // Adicione outras páginas aqui no futuro
 
 if (!in_array($page, $allowed_pages)) {
     $page = 'buscar_midias'; // Redireciona para a página de busca se a URL for inválida
@@ -51,7 +51,7 @@ $page_path = __DIR__ . '/' . $page . '.php';
         <?php endif; ?>
 
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Alterar senha</a></li>
+        <li><a class="dropdown-item" href="dashboard.php?page=alterar_senha">Alterar senha</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="logout.php">Sair</a></li>
       </ul>
