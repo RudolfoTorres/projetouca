@@ -1,6 +1,5 @@
 function editarMidia(id) {
     window.location.href = `dashboard.php?page=editar_midia&id=${id}`;
-    console.log("to aqui");
 }
 
 // Aguarda o DOM estar completamente carregado

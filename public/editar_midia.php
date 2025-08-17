@@ -106,7 +106,7 @@ $status = $status_query->fetchAll(PDO::FETCH_ASSOC);
                 <?php echo htmlspecialchars($error_message); ?>
             </div>
         <?php else: ?>
-            <form id="edit-form" action="editar_midia_action.php" method="POST">
+            <form id="edit-form" action="handle_editar_midia.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($midia['id']); ?>">
                 
                 <div class="mb-3">
@@ -115,8 +115,8 @@ $status = $status_query->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 
                 <div class="mb-3">
-                    <label for="link_midia" class="form-label">Link da Mídia:</label>
-                    <input type="text" class="form-control" id="link_midia" name="link_midia" value="<?php echo htmlspecialchars($midia['link'] ?? ''); ?>" required>
+                    <label for="link" class="form-label">Link da Mídia:</label>
+                    <input type="text" class="form-control" id="link" name="link" value="<?php echo htmlspecialchars($midia['link'] ?? ''); ?>" required>
                 </div>
 
                 <div class="row">

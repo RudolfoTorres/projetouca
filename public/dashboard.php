@@ -58,6 +58,18 @@ $page_path = __DIR__ . '/' . $page . '.php';
     </div>
   </div>
 
+<?php
+if (isset($_SESSION['success_message'])) {
+  echo '<div class="alert alert-success mt-3" role="alert">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
+  unset($_SESSION['success_message']);
+}
+
+if (isset($_SESSION['error_message'])) {
+  echo '<div class="alert alert-danger mt-3" role="alert">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+  unset($_SESSION['error_message']);
+}
+?>
+
   <div class="main-content">
     <?php
       if (file_exists($page_path)) {
