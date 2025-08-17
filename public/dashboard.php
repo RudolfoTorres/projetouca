@@ -51,6 +51,8 @@ $page_path = __DIR__ . '/' . $page . '.php';
         <?php endif; ?>
 
         <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Alterar senha</a></li>
+        <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="logout.php">Sair</a></li>
       </ul>
     </div>

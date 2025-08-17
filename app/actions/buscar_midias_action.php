@@ -13,21 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
     $user_id_logado = $_SESSION['user_id'];
     $nome = trim($_POST['nome'] ?? '');
     
-    // Corrigido: Agora usa os nomes corretos dos arrays vindos do formulário
+    // Agora, verificamos se os campos de seleção múltipla são arrays
     $linhas_selecionadas = $_POST['linhas'] ?? [];
     $sistemas_selecionados = $_POST['sistemas'] ?? [];
     $responsaveis_selecionados = $_POST['pessoas'] ?? [];
+    $status_selecionados = $_POST['status'] ?? []; // Novo filtro
+    $data_inicial = trim($_POST['data_inicial'] ?? ''); // Novo filtro
+    $data_final = trim($_POST['data_final'] ?? '');     // Novo filtro
 
     $sql = "SELECT
+                m.id, -- Adicionado para os botões de ação
                 m.titulo,
                 l.nome AS linha_nome,
                 s.nome AS sistema_nome,
                 u.usuario AS responsavel_nome,
+                sm.nome AS status_nome, -- Adicionado para o novo filtro
                 m.created_at
             FROM midias m
             LEFT JOIN linhas l ON m.linha_id = l.id
             LEFT JOIN sistemas s ON m.sistema_id = s.id
             LEFT JOIN usuarios u ON m.responsavel_id = u.id
+            LEFT JOIN status_midia sm ON m.status_id = sm.id -- Novo JOIN
             WHERE 1=1";
 
     $params = [];
@@ -55,6 +61,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
         $params = array_merge($params, $responsaveis_selecionados);
     }
 
+    if (!empty($status_selecionados)) {
+        $placeholders = implode(',', array_fill(0, count($status_selecionados), '?'));
+        $sql .= " AND m.status_id IN (" . $placeholders . ")";
+        $params = array_merge($params, $status_selecionados);
+    }
+
+    // Adiciona os filtros de data, se existirem
+    if (!empty($data_inicial)) {
+        $sql .= " AND DATE(m.created_at) >= ?";
+        $params[] = $data_inicial;
+    }
+
+    if (!empty($data_final)) {
+        $sql .= " AND DATE(m.created_at) <= ?";
+        $params[] = $data_final;
+    }
+
     if ($user_nivel_permissao !== 'GERENTE') {
         $linhas_do_usuario_query = $pdo->prepare("SELECT linha_id FROM user_linhas WHERE user_id = ?");
         $linhas_do_usuario_query->execute([$user_id_logado]);
@@ -65,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
             $sql .= " AND m.linha_id IN (" . $placeholders . ")";
             $params = array_merge($params, $linhas_acesso);
         } else {
-            echo "<tr><td colspan='6' class='text-center text-muted'>Nenhum resultado encontrado.</td></tr>";
+            echo "<tr><td colspan='7' class='text-center text-muted'>Nenhum resultado encontrado.</td></tr>";
             exit();
         }
     }
@@ -85,15 +108,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
                 echo "<td>" . htmlspecialchars($midia['sistema_nome']) . "</td>";
                 echo "<td>" . htmlspecialchars($midia['responsavel_nome']) . "</td>";
                 echo "<td>" . htmlspecialchars(date('d/m/Y H:i', strtotime($midia['created_at']))) . "</td>";
-                echo "<td></td>"; 
+                echo "<td>" . htmlspecialchars($midia['status_nome']) . "</td>";
+                echo "<td>";
+                echo "<button class='btn btn-warning btn-sm me-2' onclick='editarMidia(" . htmlspecialchars($midia['id']) . ")'>Editar</button>";
+                echo "<button class='btn btn-danger btn-sm' onclick='excluirMidia(" . htmlspecialchars($midia['id']) . ")'>Excluir</button>";
+                echo "</td>";
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='6' class='text-center text-muted'>Nenhum resultado encontrado.</td></tr>";
+            echo "<tr><td colspan='7' class='text-center text-muted'>Nenhum resultado encontrado.</td></tr>";
         }
     } catch (PDOException $e) {
         http_response_code(500);
-        echo "<tr><td colspan='6' class='text-center text-danger'>Erro no banco de dados: " . htmlspecialchars($e->getMessage()) . "</td></tr>";
+        echo "<tr><td colspan='7' class='text-center text-danger'>Erro no banco de dados: " . htmlspecialchars($e->getMessage()) . "</td></tr>";
     }
 } else {
     http_response_code(403);
