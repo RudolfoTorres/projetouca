@@ -31,47 +31,50 @@ if ($_SESSION['user_nivel_permissao'] === 'SUPERVISOR') {
 }
 ?>
     <div class="register-container">
-        <h3>Cadastro de Usuário</h3>
+        <h3>Cadastrar Usuário</h3>
 
-        <?php
-            if (isset($_SESSION['register_error'])) {
-                echo '<p style="color:red;">' . $_SESSION['register_error'] . '</p>';
-                unset($_SESSION['register_error']);
-            } elseif (isset($_SESSION['register_success'])) {
-                echo '<p style="color:green;">' . $_SESSION['register_success'] . '</p>';
-                unset($_SESSION['register_success']);
-            }
-        ?>
+            <?php
+                if (isset($_SESSION['register_error'])) {
+                    echo '<p style="color:red;">' . $_SESSION['register_error'] . '</p>';
+                    unset($_SESSION['register_error']);
+                } elseif (isset($_SESSION['register_success'])) {
+                    echo '<p style="color:green;">' . $_SESSION['register_success'] . '</p>';
+                    unset($_SESSION['register_success']);
+                }
+            ?>
 
-        <form action="/handle_register.php" method="POST">
-            <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Usuário" required>
+        <div class="card p-4 mb-4">
 
-            <input class="form-control" type="password" id="senha" name="senha" placeholder="Senha" required>
+            <form action="/handle_register.php" method="POST">
+                <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Usuário" required>
 
-            <select class="form-select" id="nivel_permissao" name="nivel_permissao" placeholder="NIVEL" required>
-                <?php if ($_SESSION['user_nivel_permissao'] === 'SUPERVISOR'): ?>
-                    <option value="INSTRUTOR">INSTRUTOR</option>
-                <?php endif; ?>
+                <input class="form-control" type="password" id="senha" name="senha" placeholder="Senha" required>
 
-                <?php if ($_SESSION['user_nivel_permissao'] === 'GERENTE'): ?>
-                    <option value="INSTRUTOR">INSTRUTOR</option>
-                    <option value="SUPERVISOR">SUPERVISOR</option>
-                    <option value="GERENTE">GERENTE</option>
-                <?php endif; ?>
-            </select><br>
+                <select class="form-select" id="nivel_permissao" name="nivel_permissao" placeholder="NIVEL" required>
+                    <?php if ($_SESSION['user_nivel_permissao'] === 'SUPERVISOR'): ?>
+                        <option value="INSTRUTOR">INSTRUTOR</option>
+                    <?php endif; ?>
 
-            <div class="mb-3">
-                <label for="linhas" class="form-label">Linhas de Acesso:</label>
-                <select class="form-select" id="linhas" name="linhas[]" multiple required>
-                    <?php foreach ($linhas_disponiveis as $linha): ?>
-                        <option value="<?php echo htmlspecialchars($linha['id']); ?>">
-                            <?php echo htmlspecialchars($linha['nome']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <small class="form-text text-muted">Use a tecla Ctrl para selecionar múltiplas linhas.</small>
-             </div>
+                    <?php if ($_SESSION['user_nivel_permissao'] === 'GERENTE'): ?>
+                        <option value="INSTRUTOR">INSTRUTOR</option>
+                        <option value="SUPERVISOR">SUPERVISOR</option>
+                        <option value="GERENTE">GERENTE</option>
+                    <?php endif; ?>
+                </select><br>
 
-            <button class="btn btn-primary" type="submit">Cadastrar</button>
-        </form>
+                <div class="mb-3">
+                    <label for="linhas" class="form-label">Linhas de Acesso:</label>
+                    <select class="form-select" id="linhas" name="linhas[]" multiple required>
+                        <?php foreach ($linhas_disponiveis as $linha): ?>
+                            <option value="<?php echo htmlspecialchars($linha['id']); ?>">
+                                <?php echo htmlspecialchars($linha['nome']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <small class="form-text text-muted">Use a tecla Ctrl para selecionar múltiplas linhas.</small>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </form>
+        </div>
     </div>

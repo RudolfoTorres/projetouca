@@ -117,7 +117,9 @@ $pessoas = $pessoas_query->fetchAll(PDO::FETCH_ASSOC);
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-12 text-end mt-3">
+               
+                <div class="col-12 text-end mt-3 bi-footer">
+                    <small class="form-text text-muted">Use a tecla Ctrl para selecionar múltiplas linhas.</small>
                     <button type="submit" class="btn btn-secondary">Buscar</button>
                 </div>
             </div>

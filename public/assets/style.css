@@ -125,3 +125,13 @@ a:hover {
 .dashboard-page .menu .logo p {
     margin-top: 15px;
 }
+
+/* ======================== */
+/* 3. ESTILOS DA BUSCAR_MIDIAS */
+/* ======================== */
+
+.bi-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
